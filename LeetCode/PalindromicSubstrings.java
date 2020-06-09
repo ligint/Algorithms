@@ -1,22 +1,27 @@
 class Solution {
+    
+    int count = 0;
+    
     public int countSubstrings(String s) {
         
-        int N = s.length();
-        int ans = 0;
+        if(s == null || s.length() == 0) return 0;
         
-        for(int i = 0; i <= 2*N - 1; i++){
+        for(int i = 0; i < s.length(); i++){
             
-            int left = i/2;
-            int right = left + i % 2;
-            
-            while(left >= 0 && right < N && s.charAt(left) == s.charAt(right)){
-                
-                ans++;
-                left--;
-                right++;
-            }
-            
+            extendPalindrome(s,i,i);
+            extendPalindrome(s,i,i + 1);
         }
-        return ans;
+        
+        return count;
+    }
+    
+    private void extendPalindrome(String s, int left, int right){
+        
+        while(left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)){
+            
+            count++; 
+            left--;
+            right++;
+        }
     }
 }
